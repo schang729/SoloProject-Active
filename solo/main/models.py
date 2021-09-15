@@ -23,6 +23,40 @@ class UserManager(models.Manager):
             errors['pw_match'] = "Password must match!"
         return errors
 
+class LocationManager(models.Manager):
+    def location_validator(self, postData):
+        errors = {}
+        if postData['name'] == "":
+            errors['name'] = "Location cannot be blank"
+        if postData['address'] == "":
+            errors['address'] = "Address cannot be blank"
+        if postData['zip_code'] =="":
+            errors['zip_code'] = "Zip Code cannot be blank"
+        return errors
+
+class ActivityManager(models.Manager):
+    def activity_validator(self, postData):
+        errors = {}
+        if postData['name'] == "":
+            errors['name'] = "Activity cannot be blank"
+
+        if postData['activity_date'] =="":
+            errors['activity_date'] = "Please enter a Activity Date and Time"
+        elif datetime.strptime(postData['activity_date'], '%Y-%m-%dt%H:%M') < datetime.now():
+            errors['activity_date'] = "Activity Date and Time should be in the future"
+
+        return errors
+
+
+
+class Location(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=300)
+    zip_code = models.CharField(max_length=15)
+    objects = LocationManager()
+    
+
+
 
 class User(models.Model):
     first_name = models.CharField(max_length=50)
@@ -32,6 +66,18 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
+
+class Activity (models.Model):
+    name = models.CharField(max_length=50)
+    activity_date = models.DateTimeField()
+    desc = models.TextField(blank=True)
+    activityType = models.CharField(max_length=10)
+    location = models.ForeignKey(Location, blank=True, null=True,related_name="activities", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="activity", on_delete = models.CASCADE)
+    attendee = models.ManyToManyField(User,blank=True, related_name="joined_activity")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = ActivityManager()
 
         
 

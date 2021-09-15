@@ -1,0 +1,31 @@
+{% extends 'Dash/base.html' %}
+<br/>
+{% block content %}
+<h1>Add a Location</h1>
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li class="text-danger" >{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form action="/active/location/add" method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="formGroupExampleInput">Location Name:</label>
+      <input name="name" type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter Location name">
+    </div>
+    <div class="form-group">
+      <label for="formGroupExampleInput2">Address</label>
+      <input name="address" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Enter address">
+    </div>
+    <div class="form-group">
+        <label for="formGroupExampleInput2">Zip Code:</label>
+        <input name="zip_code" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Enter Zipcode">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+  </form>
+
+{% endblock %}

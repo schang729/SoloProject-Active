@@ -1,5 +1,12 @@
 {% extends 'Dash/base.html' %}
 <br/>
 {% block content %}
-<h1>Welcome </h1>
+<h1 class="display-3">Welcome to Active</h1>
+		{% if messages %}
+		<ul>
+			{% for message in messages %}
+			<li class="text-danger">{{ message }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
 {% endblock %}

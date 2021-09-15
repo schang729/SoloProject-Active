@@ -1,0 +1,74 @@
+{% extends 'Dash/base.html' %}
+<br/>
+{% block content %}
+<h1 style="text-transform: capitalize">Welcome back, {{logged_user.first_name}}</h1>
+<br>
+
+<a href="/active/logout" class="btn btn-primary" role="button">Logout</a>
+
+<br>
+<h3 class="mt-2">Activites managed by you:</h3>
+<table class="table table-striped">
+    <thead >
+      <tr>
+        <th scope="col">Activity</th>
+        <th scope="col">Date & Time</th>
+        <th scope="col">Location</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for activity in logged_user.activity.all %}
+
+      <tr>
+        <td>{{activity.name}}</td>  
+        <td>{{ activity.activity_date|date:"DATETIME_FORMAT" }} </td>
+        <td><a href="/active/location/{{activity.location.id}}">{{ activity.location.name }}</a></td>
+        <td>
+            <a href="/active/{{activity.id}}/delete" class="btn btn-danger" role="button">Delete</a>
+            <a href="/active/{{activity.id}}/edit" class="btn btn-outline-warning" role="button">Edit</a>
+
+
+
+
+        </td>
+      </tr>
+      {% endfor %}
+
+
+    </tbody>
+  </table>
+  <h3>Activities you joined:</h3>
+  <table class="table table-striped table-dark">
+    <thead >
+      <tr>
+        <th scope="col">Activity</th>
+        <th scope="col">Date & Time</th>
+        <th scope="col">Location</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for activity in logged_user.joined_activity.all %}
+
+      <tr>
+        <td>{{activity.name}}</td>  
+        <td>{{ activity.activity_date|date:"DATETIME_FORMAT" }} </td>
+        <td><a href="/active/location/{{activity.location.id}}">{{ activity.location.name }}</a></td>
+        <td>
+            <a href="/active/cancel/{{activity.id}}" class="btn btn-success" role="button">Cancel</a>
+
+
+
+        </td>
+      </tr>
+      {% endfor %}
+
+
+    </tbody>
+  </table>
+
+
+
+
+{% endblock %}

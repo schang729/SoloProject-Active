@@ -1,0 +1,28 @@
+{% extends 'Dash/base.html' %}
+<br/>
+{% block content %}
+<h1>All Locations </h1>
+<a href="/active/location/form" class="btn btn-primary" role="button">Add a Location</a>
+
+
+
+{% for location in locations %}
+
+<div class="card mt-2">
+    <div class="card-header">
+      Featured
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{location.name}}</h5>
+      <p>Total upcoming activies: {{location.activities.all|length}}</p>
+      <a href="/active/location/{{location.id}}" class="btn btn-outline-danger" role="button">Details</a>
+      <a href="/active/delete/{{location.id}}">Remove</a> 
+    </div>
+  </div>
+  <br>
+
+
+{% endfor %}
+
+
+{% endblock %}

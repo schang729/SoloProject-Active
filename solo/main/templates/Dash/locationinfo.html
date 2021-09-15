@@ -1,0 +1,31 @@
+{% extends 'Dash/base.html' %}
+<br/>
+{% block content %}
+
+<h1>Location Info Welcome</h1>
+<div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-4">
+
+<a href="/active/location" class="btn btn-primary" role="button">Go Back</a>
+</div>
+</div>
+<h2>{{this_location.name}}</h2>
+
+<iframe
+width="600"
+height="450"
+style="border:0"
+loading="lazy"
+allowfullscreen
+src="https://www.google.com/maps/embed/v1/search?key=AIzaSyC4BMCTHcNeqICSrB7l5IFwBEI7vG71eF4&q={{this_location.address}}">
+</iframe>
+<br>
+{% for activity in this_location.activities.all %}
+{{activity.name}}
+
+{% endfor %}
+
+
+
+{% endblock %}
