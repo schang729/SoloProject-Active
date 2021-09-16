@@ -1,49 +1,45 @@
 {% extends 'Dash/base.html' %}
-<br/>
+<br />
 {% block content %}
 <h1>Join an activity today!</h1>
-<br>
+<br />
 
 <ul>
-{% for activity in other_activities %}
+    {% for activity in other_activities %}
 
-<div class="card">
-    <div styale="text-transform: capitalize"class="card-header">
-      <h4>Activity: {{activity.name}}</h4>
+    <div class="card">
+        <div styale="text-transform: capitalize" class="card-header">
+            <h4>Activity: {{activity.name}}</h4>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Location: {{activity.location.name}}</h5>
+            <ul>
+                <li>
+                    Activity time: {{ activity.activity_date|date:"DATETIME_FORMAT" }}
+                </li>
+                <li>Activity type: {{ activity.activityType }}</li>
+                <li>
+                    Activity manager: {{ activity.user.first_name}}
+                    {{activity.user.last_name}}
+                </li>
+                <li>Number of participants: {{activity.attendee.all|length}}</li>
+            </ul>
+
+            <br />
+
+            {% if activity.desc != ""%}
+            <p class="card-text">Description: {{activity.desc}}</p>
+            {% endif %} {% if activity not in logged_user.joined_activity.all %}
+            <a href="/active/join/{{activity.id}}" class="btn btn-primary" role="button">Join</a>
+            {% else %}
+            <a href="/active/dashboard" class="btn btn-warning">Already Joined</a>
+            {% endif %}
+            <a href="/active/activity_info/{{activity.id}}" class="btn btn-outline-danger" role="button">Details</a>
+        </div>
     </div>
-    <div class="card-body">
-      <h5 class="card-title">Location: {{activity.location.name}}</h5>
-      <ul>
+    <br />
 
-          <li> Activity time: {{ activity.activity_date|date:"DATETIME_FORMAT" }}</li>
-          <li> Activity type: {{ activity.activityType }}</li>
-          <li> Activity manager: {{ activity.user.first_name}} {{activity.user.last_name}}</li> 
-          <li> Number of participants: {{activity.attendee.all|length}}</li>
-      </ul>    
-
-      <br>
- 
-
-      {% if activity.desc != ""%}
-      <p class="card-text">Description: {{activity.desc}} </p>
-      {% endif %}
-      {% if activity not in logged_user.joined_activity.all  %}
-      <a href="/active/join/{{activity.id}}" class="btn btn-primary" role="button">Join</a>
-      {% else %}
-      <a href="/active/dashboard" class="btn btn-warning" >Already Joined</a>
-      {% endif %}
-      <a href="/active/activity_info/{{activity.id}}" class="btn btn-outline-danger" role="button">Details</a>
-
-
-      
-
-
-    </div>
-  </div>
-  <br>
-
-
-{% endfor %}
+    {% endfor %}
 </ul>
 
 {% endblock %}

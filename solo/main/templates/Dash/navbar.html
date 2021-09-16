@@ -1,64 +1,68 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/active/home">Active</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/active/dashboard">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/active/location">Locations</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/active/activity/form">Add an activity</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/active/activity">Getting active</a>
-        </li>
-        <li class="nav-item">
-            <a class="btn btn-outline-danger" href="/active/login">Register | Login </a>
-        </li>
-        <li class="nav-item">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Questions?</button>
-              
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Admin Contact</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Name: Steve the Helper</p>
-                        <p>Email: <a href="#">steveActiveHelper@ymail.com</a> </p>
-                        <p>Phone Number: 1-800-889-6000</p>
-            
-            
-                
-                      
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </li>
-      
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/active/home">Active</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/active/dashboard">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/active/location">Locations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/active/activity/form">Add an activity</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/active/activity">Getting active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-danger" href="/active/login">Register | Login </a>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn btn-success" data-toggle="modal"
+                        data-target="#exampleModal">Questions?</button>
 
-      </ul>
-      <form class="d-flex" method="post" action="/active/search_activity">
-        {% csrf_token %}
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Admin Contact</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Name: Steve the Helper</p>
+                                    <p>Email: <a href="#">steveActiveHelper@ymail.com</a> </p>
+                                    <p>Phone Number: 1-800-889-6000</p>
 
-        <input class="form-control me-2" name="result" type="search" placeholder="Search Activities" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+
+            </ul>
+            <form class="d-flex" method="post" action="/active/search_activity">
+                {% csrf_token %}
+
+                <input class="form-control me-2" name="result" type="search" placeholder="Search Activities"
+                    aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
     </div>
-  </div>
 </nav>

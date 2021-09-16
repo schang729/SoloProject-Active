@@ -48,6 +48,7 @@ def locationform(request):
     if 'logged_user' not in request.session:
         messages.error(request, "Please register or log in first!")
         return redirect('/active/home')
+        
     return render(request, 'Dash/locationform.html')
 def newlocation(request):
     if request.method =="POST":
@@ -75,6 +76,8 @@ def deletelocation(request, location_id):
 
 
 def login(request):
+    if 'logged_user' in request.session:
+        return redirect('/active/dashboard')
 
     return render(request, "Dash/reglogin.html")
 

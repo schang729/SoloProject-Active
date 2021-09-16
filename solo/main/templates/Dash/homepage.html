@@ -1,17 +1,19 @@
 {% extends 'Dash/base.html' %}
-<br/>
+<br />
 {% block content %}
 {% if messages %}
 <ul>
   {% for message in messages %}
-  <li class="text-danger"><h3>{{ message }}</h3></li>
+  <li class="text-danger">
+    <h3>{{ message }}</h3>
+  </li>
   {% endfor %}
 </ul>
 {% endif %}
 {% load static %}
 <div class="row p-3 mb-2 bg-primary text-white">
   <div class="col">
-  <img class="w-100 p-3" src="{% static 'img/photo01.jpg' %}" alt="First slide">
+    <img class="w-100 p-3" src="{% static 'img/photo01.jpg' %}" alt="First slide">
   </div>
   <div class="col">
     <h1 style="margin-top: 320px; margin-left: 125px" class="display-1">[ Active ]</h1>

@@ -1,5 +1,5 @@
 {% extends 'Dash/base.html' %}
-<br/>
+<br />
 {% block content %}
 
 <h1>Activity Information:</h1>
@@ -7,8 +7,8 @@
     <div class="col-md-8"></div>
     <div class="col-md-4">
 
-<a href="/active/activity" class="btn btn-warning" role="button">Go Back</a>
-</div>
+        <a href="/active/activity" class="btn btn-warning" role="button">Go Back</a>
+    </div>
 </div>
 <h2>{{this_activity.name}}:</h2>
 <br>
@@ -16,22 +16,23 @@
 
     <li> Activity time: {{ this_activity.activity_date|date:"DATETIME_FORMAT" }}</li>
     <li> Activity type: {{ this_activity.activityType }}</li>
-    <li> Activity manager: {{ this_activity.user.first_name}} {{activity.user.last_name}}</li> 
+    <li> Activity manager: {{ this_activity.user.first_name}} {{activity.user.last_name}}</li>
 
-</ul>  
+</ul>
 
 {% if this_activity.desc != ""%}
 <p class="card-text">Description: {{this_activity.desc}} </p>
 {% endif %}
 
 <h3>Location:</h3>
-<a href="/active/location/{{this_activity.location.id}}" class="btn btn-outline-danger" role="button">{{this_activity.location.name}}</a>
+<a href="/active/location/{{this_activity.location.id}}" class="btn btn-outline-danger"
+    role="button">{{this_activity.location.name}}</a>
 
 
 <br>
 <div class="card mt-3" style="width: 25rem;">
     <div class="card-header">
-      List of Participants
+        List of Participants
     </div>
     <ul class="list-group list-group-flush">
 
@@ -40,9 +41,9 @@
         <li class="list-group-item">{{party.first_name}} {{party.last_name}}</li>
         {% endfor %}
 
-   
+
     </ul>
-  </div>
+</div>
 
 
 

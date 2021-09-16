@@ -1,11 +1,11 @@
 {% extends 'Dash/base.html' %}
-<br/>
+<br />
 {% block content %}
 <h1>Edit Activity - {{this_activity.name}}</h1>
 {% if messages %}
 <ul>
     {% for message in messages %}
-    <li class="text-danger" >{{ message }}</li>
+    <li class="text-danger">{{ message }}</li>
     {% endfor %}
 </ul>
 {% endif %}
@@ -15,26 +15,27 @@
     {% csrf_token %}
 
     <div class="form-group">
-      <label for="formGroupExampleInput">Activity Name:</label>
-      <input name="name" type="text" class="form-control" id="formGroupExampleInput" value="{{this_activity.name}}">
+        <label for="formGroupExampleInput">Activity Name:</label>
+        <input name="name" type="text" class="form-control" id="formGroupExampleInput" value="{{this_activity.name}}">
     </div>
     <div class="form-group">
         <label for="formGroupExampleInput">Date & Time</label>
-        <input name="activity_date" type="datetime-local" class="form-control" id="formGroupExampleInput"  >
+        <input name="activity_date" type="datetime-local" class="form-control" id="formGroupExampleInput">
     </div>
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Description (Optional):</label>
-        <textarea name="desc"class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="{{this_activity.desc}}"></textarea>
+        <textarea name="desc" class="form-control" id="exampleFormControlTextarea1" rows="4"
+            placeholder="{{this_activity.desc}}"></textarea>
     </div>
     <div class="form-group">
         <label for="exampleFormControlSelect1">Select Location:</label>
-        <select name="activity_dropdown"class="form-select" id="exampleFormControlSelect1">
+        <select name="activity_dropdown" class="form-select" id="exampleFormControlSelect1">
             <option value="-1">Please choose a location</option>
 
             {% for location in locations%}
             <option value="{{location.id}}">{{location.name}}</option>
             {% endfor %}
-          
+
         </select>
     </div>
     <a href="/active/location/form" class="btn btn-primary mt-2" role="button">Add a Location</a>
@@ -42,15 +43,15 @@
     <div class="form-check">
         <input class="form-check-input" type="radio" name="activityType" id="exampleRadios1" value="Indoor" checked>
         <label class="form-check-label" for="exampleRadios1">Indoor</label>
-      </div>
-      <div class="form-check">
+    </div>
+    <div class="form-check">
         <input class="form-check-input" type="radio" name="activityType" id="exampleRadios2" value="Outdoor">
         <label class="form-check-label" for="exampleRadios2">Outdoor</label>
-      </div>
+    </div>
 
 
     <button type="submit" class="btn btn-primary mt-2">Submit</button>
 
-  </form>
+</form>
 
 {% endblock %}
