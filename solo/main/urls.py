@@ -3,9 +3,8 @@ from . import views
 
 urlpatterns = [
     path('active', views.index),
+    path('active/home', views.home),
     path('active/dashboard', views.dashboard),
-
-    path('playdate/maps/sanmateo', views.maps_sm),
     path('active/login', views.login),
     path('active/login/user', views.loginuser),
     path('active/create', views.create),
@@ -19,11 +18,12 @@ urlpatterns = [
     path('active/add/activity', views.newactivity),
     path('active/<int:activity_id>/delete', views.deleteactivity),
     path('active/activity', views.activity),
+    path('active/activity_info/<int:activity_id>', views.activity_info),
     path('active/join/<int:activity_id>', views.joinactivity),
     path('active/cancel/<int:activity_id>', views.cancelactivity),
-
     path('active/<int:activity_id>/edit', views.editform),
     path('active/update/<int:activity_id>', views.updateactivity),
+    path('active/search_activity', views.search_activity)
 
 
 

@@ -1,0 +1,26 @@
+{% extends 'Dash/base.html' %}
+<br/>
+{% block content %}
+<center>
+    <br>
+    {% if result %}
+        <h1>You searched for {{ result }}</h1>
+        <br>
+        {% for activity in activities %}
+ 
+            <h3> <a href="/active/activity_info/{{activity.id}}" class="btn btn-outline-secondary" role="button">{{activity.name}}</a></h3>
+
+        {% endfor %}
+
+        {% for location in locations %}
+            <h3> <a href="/active/location/{{location.id}}" class="btn btn-outline-secondary" role="button">{{location.name}}</a></h3>
+
+        {% endfor %}
+    {% else %}
+        <h1>You forgot something </h1>
+
+
+    {% endif %}
+</center>
+
+{% endblock %}

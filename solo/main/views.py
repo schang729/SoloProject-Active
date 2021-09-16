@@ -6,11 +6,14 @@ import bcrypt
 def index(request):
     return render(request, "Dash/index.html")
 
+def home(request):
+    return render(request, "Dash/homepage.html")
+
 def dashboard(request):
 
     if 'logged_user' not in request.session:
         messages.error(request, "Please register or log in first!")
-        return redirect('/active')
+        return redirect('/active/home')
     context = {
         'logged_user': User.objects.get(id=request.session['logged_user']),
         'other_activities': Activity.objects.exclude(user=request.session['logged_user'])
@@ -24,7 +27,7 @@ def maps_sm(request):
 def location(request):
     if 'logged_user' not in request.session:
         messages.error(request, "Please register or log in first!")
-        return redirect('/active')
+        return redirect('/active/home')
 
     context={
         'locations': Location.objects.all()
@@ -44,7 +47,7 @@ def showlocation(request, location_id):
 def locationform(request):
     if 'logged_user' not in request.session:
         messages.error(request, "Please register or log in first!")
-        return redirect('/active')
+        return redirect('/active/home')
     return render(request, 'Dash/locationform.html')
 def newlocation(request):
     if request.method =="POST":
@@ -62,6 +65,9 @@ def newlocation(request):
         return redirect('/active/location')
 
 def deletelocation(request, location_id):
+    if 'logged_user' not in request.session:
+        messages.error(request, "Please register or log in first!")
+        return redirect('/active/home')
 
     location_delete = Location.objects.get(id=location_id)
     location_delete.delete()
@@ -114,6 +120,9 @@ def logout(request):
     return redirect('/active/login')
 
 def activityform(request):
+    if 'logged_user' not in request.session:
+        messages.error(request, "Please register or log in first!")
+        return redirect('/active/home')
 
     context = {
         'locations': Location.objects.all()
@@ -148,11 +157,17 @@ def newactivity(request):
         return redirect('/active/dashboard')
 
 def deleteactivity(request, activity_id):
+    if 'logged_user' not in request.session:
+        messages.error(request, "Please register or log in first!")
+        return redirect('/active/home')
     activity_delete = Activity.objects.get(id=activity_id)
     activity_delete.delete()
     return redirect('/active/dashboard')
 
 def activity(request):
+    if 'logged_user' not in request.session:
+        messages.error(request, "Please register or log in first!")
+        return redirect('/active/home')
     context={
         'all_activities' : Activity.objects.all(),
         'logged_user': User.objects.get(id=request.session['logged_user']),
@@ -204,6 +219,31 @@ def updateactivity(request, activity_id):
         current_activity.save()
 
         return redirect('/active/dashboard')
+
+def search_activity(request):
+    if 'logged_user' not in request.session:
+        messages.error(request, "Please register or log in first!")
+        return redirect('/active/home')
+    if request.method =="POST":
+        result = request.POST['result']
+        activities = Activity.objects.filter(name__contains=result)
+        locations = Location.objects.filter(name__contains=result)
+
+        return render(request, 'Dash/searchActivity.html',{'result': result, 'activities':activities, 'locations':locations})
+    else:
+        return render(request, 'Dash/searchActivity.html')
+
+def activity_info(request, activity_id):
+ 
+    context = {
+        'this_activity': Activity.objects.get(id=activity_id)
+
+    }
+    return render(request, 'Dash/activityinfo.html', context)
+
+
+
+
 
 
 
