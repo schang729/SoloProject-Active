@@ -29,7 +29,8 @@
 
             {% if activity.desc != ""%}
             <p class="card-text">Description: {{activity.desc}}</p>
-            {% endif %} {% if activity not in logged_user.joined_activity.all %}
+            {% endif %} 
+            {% if activity not in logged_user.joined_activity.all %}
             <a href="/active/join/{{activity.id}}" class="btn btn-primary" role="button">Join</a>
             {% else %}
             <a href="/active/dashboard" class="btn btn-warning">Already Joined</a>

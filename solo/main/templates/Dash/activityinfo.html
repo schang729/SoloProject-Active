@@ -44,10 +44,12 @@
 
     </ul>
 </div>
-
-
-
-
+<br>
+{% if this_activity not in logged_user.joined_activity.all %}
+<a href="/active/join/{{this_activity.id}}" class="btn btn-primary" role="button">Join</a>
+{% else %}
+<a href="/active/dashboard" class="btn btn-warning">Already Joined</a>
+{% endif %}
 
 
 {% endblock %}

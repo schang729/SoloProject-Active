@@ -54,7 +54,8 @@
         {% for activity in logged_user.joined_activity.all %}
 
         <tr>
-            <td>{{activity.name}}</td>
+            <td><a href="/active/activity_info/{{activity.id}}">{{activity.name}}</a></td>
+            
             <td>{{ activity.activity_date|date:"DATETIME_FORMAT" }} </td>
             <td><a href="/active/location/{{activity.location.id}}">{{ activity.location.name }}</a></td>
             <td>

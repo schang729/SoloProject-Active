@@ -3,11 +3,14 @@ from django.contrib import messages
 from .models import User, Location, Activity
 import bcrypt
 
+
 def index(request):
     return render(request, "Dash/index.html")
 
+
 def home(request):
     return render(request, "Dash/homepage.html")
+
 
 def dashboard(request):
 
@@ -22,36 +25,43 @@ def dashboard(request):
     }
     return render(request, 'Dash/dashboard.html', context)
 
+
 def maps_sm(request):
     return render(request, "Dash/mapsSm.html")
+
+
 def location(request):
     if 'logged_user' not in request.session:
         messages.error(request, "Please register or log in first!")
         return redirect('/active/home')
 
-    context={
+    context = {
         'locations': Location.objects.all()
 
 
     }
     return render(request, "Dash/location.html", context)
 
+
 def showlocation(request, location_id):
- 
+
     context = {
         'this_location': Location.objects.get(id=location_id)
 
     }
     return render(request, 'Dash/locationinfo.html', context)
 
+
 def locationform(request):
     if 'logged_user' not in request.session:
         messages.error(request, "Please register or log in first!")
         return redirect('/active/home')
-        
+
     return render(request, 'Dash/locationform.html')
+
+
 def newlocation(request):
-    if request.method =="POST":
+    if request.method == "POST":
         errors = Location.objects.location_validator(request.POST)
         if errors:
             for key, value in errors.items():
@@ -64,6 +74,7 @@ def newlocation(request):
 
         )
         return redirect('/active/location')
+
 
 def deletelocation(request, location_id):
     if 'logged_user' not in request.session:
@@ -80,6 +91,7 @@ def login(request):
         return redirect('/active/dashboard')
 
     return render(request, "Dash/reglogin.html")
+
 
 def create(request):
 
@@ -105,6 +117,7 @@ def create(request):
         return redirect('/active/dashboard')
     return redirect("/active/login")
 
+
 def loginuser(request):
     if request.method == "POST":
         user = User.objects.filter(email=request.POST['email'])
@@ -118,9 +131,11 @@ def loginuser(request):
         messages.error(request, "Email or password are invalid.")
     return redirect("/active/login")
 
+
 def logout(request):
     request.session.flush()
     return redirect('/active/login')
+
 
 def activityform(request):
     if 'logged_user' not in request.session:
@@ -132,32 +147,35 @@ def activityform(request):
     }
     return render(request, 'Dash/activityform.html', context)
 
+
 def newactivity(request):
-    if request.method =="POST":
+    if request.method == "POST":
         errors = Activity.objects.activity_validator(request.POST)
 
         if request.POST['activity_dropdown'] == "-1":
-            messages.error(request, "Please either choose a location from the dropdown or add a new location")
+            messages.error(
+                request, "Please either choose a location from the dropdown or add a new location")
         if len(errors) > 0:
             for key, value in errors.items():
-                    messages.error(request, value)
+                messages.error(request, value)
             return redirect('/active/activity/form')
-        else: 
-            curr_location = Location.objects.get(id = request.POST['activity_dropdown'])
+        else:
+            curr_location = Location.objects.get(
+                id=request.POST['activity_dropdown'])
 
-
-        current_user = User.objects.get(id = request.session['logged_user'])
+        current_user = User.objects.get(id=request.session['logged_user'])
         newAct = Activity.objects.create(
-            name = request.POST['name'],
-            activity_date = request.POST['activity_date'],
-            desc = request.POST['desc'],
-            activityType = request.POST['activityType'],
-            user = current_user,
-            location = curr_location
+            name=request.POST['name'],
+            activity_date=request.POST['activity_date'],
+            desc=request.POST['desc'],
+            activityType=request.POST['activityType'],
+            user=current_user,
+            location=curr_location
 
 
         )
         return redirect('/active/dashboard')
+
 
 def deleteactivity(request, activity_id):
     if 'logged_user' not in request.session:
@@ -167,17 +185,19 @@ def deleteactivity(request, activity_id):
     activity_delete.delete()
     return redirect('/active/dashboard')
 
+
 def activity(request):
     if 'logged_user' not in request.session:
         messages.error(request, "Please register or log in first!")
         return redirect('/active/home')
-    context={
-        'all_activities' : Activity.objects.all(),
+    context = {
+        'all_activities': Activity.objects.all(),
         'logged_user': User.objects.get(id=request.session['logged_user']),
         'other_activities': Activity.objects.exclude(user=request.session['logged_user'])
 
     }
     return render(request, "Dash/activity.html", context)
+
 
 def joinactivity(request, activity_id):
     user = User.objects.get(id=request.session['logged_user'])
@@ -185,34 +205,39 @@ def joinactivity(request, activity_id):
     user.joined_activity.add(this_activity)
     return redirect('/active/dashboard')
 
+
 def cancelactivity(request, activity_id):
     user = User.objects.get(id=request.session['logged_user'])
     this_activity = Activity.objects.get(id=activity_id)
     user.joined_activity.remove(this_activity)
     return redirect('/active/dashboard')
 
+
 def editform(request, activity_id):
 
     context = {
-        'this_activity' : Activity.objects.get(id=activity_id),
+        'this_activity': Activity.objects.get(id=activity_id),
         'locations': Location.objects.all()
 
     }
     return render(request, 'Dash/activityedit.html', context)
 
+
 def updateactivity(request, activity_id):
 
-    if request.method =="POST":
+    if request.method == "POST":
         errors = Activity.objects.activity_validator(request.POST)
 
         if request.POST['activity_dropdown'] == "-1":
-            messages.error(request, "Please either choose a location from the dropdown or add a new location")
+            messages.error(
+                request, "Please either choose a location from the dropdown or add a new location")
         if len(errors) > 0:
             for key, value in errors.items():
-                    messages.error(request, value)
+                messages.error(request, value)
             return redirect(f'/active/{activity_id}/edit')
-        else: 
-            curr_location = Location.objects.get(id = request.POST['activity_dropdown'])
+        else:
+            curr_location = Location.objects.get(
+                id=request.POST['activity_dropdown'])
         current_activity = Activity.objects.get(id=activity_id)
         current_activity.name = request.POST['name']
         current_activity.activity_date = request.POST['activity_date']
@@ -223,34 +248,27 @@ def updateactivity(request, activity_id):
 
         return redirect('/active/dashboard')
 
+
 def search_activity(request):
     if 'logged_user' not in request.session:
         messages.error(request, "Please register or log in first!")
         return redirect('/active/home')
-    if request.method =="POST":
+    if request.method == "POST":
         result = request.POST['result']
         activities = Activity.objects.filter(name__contains=result)
         locations = Location.objects.filter(name__contains=result)
 
-        return render(request, 'Dash/searchActivity.html',{'result': result, 'activities':activities, 'locations':locations})
+        return render(request, 'Dash/searchActivity.html', {'result': result, 'activities': activities, 'locations': locations})
     else:
         return render(request, 'Dash/searchActivity.html')
 
+
 def activity_info(request, activity_id):
- 
+
     context = {
-        'this_activity': Activity.objects.get(id=activity_id)
+        'this_activity': Activity.objects.get(id=activity_id),
+        'logged_user': User.objects.get(id=request.session['logged_user']),
+
 
     }
     return render(request, 'Dash/activityinfo.html', context)
-
-
-
-
-
-
-
-
-
-
-
